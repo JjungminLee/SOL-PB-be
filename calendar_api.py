@@ -111,7 +111,7 @@ def scrape_myhome_newlywed_notices() -> List[Dict]:
                 continue
 
             notices.append({
-                "title": f"[신혼부부] {title}",
+                "title": f"{title}",
                 "start_date": str(start_date),
                 "end_date": str(start_date),
                 "region": region,
