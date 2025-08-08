@@ -1,5 +1,6 @@
 from fastapi import FastAPI, Request
 from pydantic import BaseModel
+from fastapi import APIRouter
 from typing import List, Dict
 from openai import OpenAI
 import json
@@ -10,16 +11,9 @@ from calendar_scraper import scrape_applyhome_calendar, scrape_myhome_notices, f
 
 
 
-app = FastAPI()
-client = OpenAI(api_key="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")
+router = APIRouter()
+client = OpenAI(api_key="")
 
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=["http://localhost:5173","https://sol-pb-fe.vercel.app/"],  # 프론트 주소
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
 
 class StrategyRequest(BaseModel):
     isHomeless: bool
@@ -30,7 +24,7 @@ class StrategyRequest(BaseModel):
     hasAccount: bool
     hasHouseHistory: bool
 
-@app.post("/api/strategy")
+@router.post("/api/strategy")
 async def strategy(req: StrategyRequest):
     # 1. 사용자 입력
     user_data = req.dict()
@@ -71,10 +65,8 @@ JSON 코드만 출력하세요. 마크다운 코드블록 없이.
 
     # 5. GPT 호출
     response = client.chat.completions.create(
-        model="gpt-4o",
-        messages=[{"role": "user", "content": prompt}],
-        temperature=0.5
-    )
+    model="gpt-5-nano",
+    messages=[{"role": "user", "content": prompt}])
     content = response.choices[0].message.content
     json_str = re.sub(r"```json|```", "", content).strip()
 

@@ -1,4 +1,5 @@
-from fastapi import FastAPI, Response
+from fastapi import  Response
+from fastapi import APIRouter
 from ics import Calendar, Event
 from datetime import datetime, timedelta
 from typing import List, Dict
@@ -8,10 +9,11 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 from time import sleep
-from mangum import Mangum
 import re
 
-app = FastAPI()
+
+router = APIRouter()
+
 
 def get_safe_chrome_driver():
     options = Options()
@@ -153,7 +155,7 @@ def create_ics_content(notices: List[Dict]) -> str:
     return str(cal)
 
 # API 라우터
-@app.get("/calendar")
+@router.get("/calendar")
 def get_combined_calendar():
     applyhome = scrape_applyhome_calendar()
     myhome = scrape_myhome_newlywed_notices()
@@ -161,5 +163,3 @@ def get_combined_calendar():
     weekly = filter_by_week(combined)
     ics_content = create_ics_content(weekly)
     return Response(content=ics_content, media_type="text/calendar")
-
-handler = Mangum(app)
