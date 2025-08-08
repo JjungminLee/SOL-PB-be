@@ -67,7 +67,7 @@ AI가 함께하는 **스마트 주택 청약 준비 도우미** 🏡
 ```bash
 # 1. 저장소 클론
 git clone https://github.com/JjungminLee/SOL-PB_fe.git
-cd gp-service
+cd sol-pb-be
 
 # 2. 가상환경 및 패키지 설치
 python -m venv venv
