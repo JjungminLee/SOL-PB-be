@@ -75,7 +75,7 @@ source venv/bin/activate  # Windows: venv\Scripts\activate
 pip install -r requirements.txt
 
 # 3. 환경변수 설정
-# strategy_api.py 의 15번째 줄에 제공해 드린 API Key를 넣어주시면 테스트 가능합니다.
+# strategy_api.py 의 25번째 줄에 제공해 드린 API Key를 넣어주시면 테스트 가능합니다.
 
 # 4. 백엔드 서버 실행
 uvicorn app:app --reload --port 8000
